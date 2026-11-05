@@ -1,4 +1,5 @@
-const BASE_URL = '/mandap/students';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
+const BASE_URL = `${API_BASE}/mandap/students`;
 
 export const studentApi = {
   // Fetch all students
