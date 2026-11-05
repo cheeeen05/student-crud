@@ -1,8 +1,7 @@
 services:
   - type: web
     name: student-frontend
-    env: static
-    plan: free
+    runtime: static
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     routes:
