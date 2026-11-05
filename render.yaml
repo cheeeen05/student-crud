@@ -45,10 +45,7 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_BASE_URL
-        fromService:
-          type: web
-          name: student-backend
-          property: host
+        value: https://student-backend-vj2m.onrender.com
 
 databases:
   - name: student-db

@@ -26,7 +26,7 @@ export default function App() {
     } catch (err) {
       showNotification(
         'error',
-        'Unable to connect to Spring Boot API. Please ensure the backend is running at http://localhost:8080'
+        `Unable to connect to Student API (${err.message || 'Network error'}). Please verify the backend is online.`
       );
     } finally {
       setLoading(false);
