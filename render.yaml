@@ -1,10 +1,56 @@
 services:
+  # ── Backend (Spring Boot Docker) ───────────────────────────────────────────
+  - type: web
+    name: student-backend
+    runtime: docker
+    plan: free
+    dockerfilePath: ./student/Dockerfile
+    dockerContext: ./student
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: student-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: student-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: student-db
+          property: database
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: student-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: student-db
+          property: password
+      - key: DB_SSL_MODE
+        value: require
+      - key: PORT
+        value: "8080"
+
+  # ── Frontend (Vite React Static Site) ──────────────────────────────────────
   - type: web
     name: student-frontend
     runtime: static
+    rootDir: student-frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     routes:
       - type: rewrite
         source: /*
         destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: student-backend
+          property: host
+
+databases:
+  - name: student-db
+    plan: free
+    databaseName: db_student

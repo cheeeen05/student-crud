@@ -1,4 +1,7 @@
-const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
+let API_BASE = import.meta.env.VITE_API_BASE_URL || '';
+if (API_BASE && !API_BASE.startsWith('http://') && !API_BASE.startsWith('https://')) {
+  API_BASE = `https://${API_BASE}`;
+}
 const BASE_URL = `${API_BASE}/mandap/students`;
 
 export const studentApi = {
